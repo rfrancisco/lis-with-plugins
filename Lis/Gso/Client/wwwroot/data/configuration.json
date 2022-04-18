@@ -1,0 +1,31 @@
+{
+  "notesMaxLength": 500,
+  "map": {
+    "maxIncidents": 10000,
+    "defaultZoom": 15,
+    "maxZoom": 22,
+    "minZoom": 5,
+    "center": { "lat": 37.052201851352926, "lng": -8.056786790771639 },
+    "boundingBox": { "northEast": { "lat": 37.0752235, "lng": -8.0077614 }, "southWest": { "lat": 37.0244474, "lng": -8.1071103 } },
+    "styles": [
+      { "title": "Google Estradas", "config": "{}", "initial": true, "mapTypeId": "roadmap" },
+      { "title": "Google Híbrido", "config": "{}", "initial": false, "mapTypeId": "hybrid" }
+    ]
+  },
+  "headerMobile": { "enabled": true, "imageUrl": "https://infralobo.city-platform.com/api/media/196/file", "link": "app/gso/" },
+  "validatorRoles": ["focusbc", "Operation Management - Validador"],
+  "executorRoles": ["focusbc", "Operation Management - Executante"],
+  "managerRoles": ["focusbc", "Operation Management - Gestor", "Administrador"],
+  "docManagementShow": false,
+  "docManagementButtonShow": false,
+  "docManagementDisabled": false,
+  "docManagementButtonLabel": "Gestão Documental",
+  "docManagementProcessLabel": "Processo",
+  "applicationName": "Operation Management",
+  "header": { "enabled": true, "imageUrl": "https://infralobo.city-platform.com/api/media/367/file", "link": "app/gso/" },
+  "welcomeScreen": {
+    "enabled": true,
+    "title": "Bem-vindos",
+    "body": "Uma Aplicação centrada na sustentabilidade ambiental, no seu bem-estar e na sua participação. \r\nEsta Aplicação engloba soluções relacionadas com Gestão de Serviços Operacionais, Manutenção, Limpeza e Higiene Urbana. \r\nBenefícios como, aumentos da eficácia, otimização de recursos materiais e humanos, redução de custos, promoção da participação pública, possibilidade de colocar os clientes no centro da tomada de decisões, possibilidade de direcionar os esforços para as questões essenciais e fomento da cidadania ativa, foram decisivos na implementação da INFRALOBO SMART MANAGEMENT! \r\n\r\nINFRALOBO SMART MANAGEMENT – o caminho para a solução!"
+  }
+}

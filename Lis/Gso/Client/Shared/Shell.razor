@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+
+@inject IGsoHeaderManager GsoHeaderMan
+@inject IGsoNavigationManager GsoNavigationMan
+
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudAppBar Elevation="1">
+    <MudText Typo="Typo.h5">@GsoHeaderMan.Title</MudText>
+    <MudSpacer />
+    @foreach (var action in GsoHeaderMan.Actions) {
+        <MudIconButton Title="@action.Label" Icon="@action.Icon" Color="@((Color)action.Color)" Edge="Edge.End" OnClick="action.OnClick" Class="ml-1" />
+    }
+    <MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Inherit" Edge="Edge.End" Class="ml-1" />
+</MudAppBar>
+<div class="layout">
+    @Body
+</div>
+
+@code {
+    protected override void OnInitialized() {
+        GsoHeaderMan.HeaderChanged += StateHasChanged;
+        GsoNavigationMan.NavigationContextChanged += StateHasChanged;
+    }
+}

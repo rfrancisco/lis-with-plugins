@@ -1,0 +1,95 @@
+[
+  {
+    "id": 4,
+    "code": "OT",
+    "description": "Public Garden",
+    "color": "#a3ba00",
+    "iconName": "local_florist",
+    "subTypes": [
+      { "id": 28, "code": "ST27", "description": "Contratação externa PG" },
+      { "id": 42, "code": "ST41", "description": "Interno PG" },
+      { "id": 40, "code": "ST39", "description": "Lagos / Fontes" },
+      { "id": 8, "code": "ST8", "description": "Manutenção - PG" },
+      { "id": 1, "code": "ST1", "description": "Outros" },
+      { "id": 41, "code": "ST40", "description": "Outros - PG" },
+      { "id": 10, "code": "ST10", "description": "Rega" },
+      { "id": 9, "code": "ST9", "description": "Relva" },
+      { "id": 55, "code": "ST54", "description": "Telemetria - PG" }
+    ]
+  },
+  {
+    "id": 3,
+    "code": "EP",
+    "description": "Public Lights",
+    "color": "#689d22",
+    "iconName": "lightbulb",
+    "subTypes": [
+      { "id": 58, "code": "ST57", "description": "Caixas" },
+      { "id": 5, "code": "ST5", "description": "Candeeiro Danificado" },
+      { "id": 56, "code": "ST55", "description": "Candeeiro Iluminação" },
+      { "id": 4, "code": "ST4", "description": "Candeeiro Intermitente" },
+      { "id": 61, "code": "ST60", "description": "Contratação externa - PL" },
+      { "id": 57, "code": "ST56", "description": "Focos de iluminação" },
+      { "id": 60, "code": "ST59", "description": "Interno - PL" },
+      { "id": 59, "code": "ST58", "description": "Outros - PL" }
+    ]
+  },
+  {
+    "id": 5,
+    "code": "EV",
+    "description": "Infrastructures",
+    "color": "#488e37",
+    "iconName": "build",
+    "subTypes": [
+      { "id": 37, "code": "ST36", "description": "Análises" },
+      { "id": 16, "code": "ST16", "description": "Betuminoso" },
+      { "id": 35, "code": "ST34", "description": "Boca incêndio / Hidrantes" },
+      { "id": 17, "code": "ST17", "description": "Caixa / Tampa" },
+      { "id": 14, "code": "ST14", "description": "Calçada" },
+      { "id": 52, "code": "ST51", "description": "Contadores" },
+      { "id": 36, "code": "ST35", "description": "Contratação externa INF" },
+      { "id": 39, "code": "ST38", "description": "Interno INF" },
+      { "id": 38, "code": "ST37", "description": "Outros - INF" },
+      { "id": 64, "code": "ST63", "description": "Rega - INF" },
+      { "id": 33, "code": "ST32", "description": "Rotura água" },
+      { "id": 53, "code": "ST52", "description": "Saneamento - Residuais/Domésticos" },
+      { "id": 31, "code": "ST30", "description": "Saneamento pluviais" },
+      { "id": 63, "code": "ST62", "description": "Smart Bikes" },
+      { "id": 54, "code": "ST53", "description": "Sumidouros" },
+      { "id": 43, "code": "ST42", "description": "Telemetria" }
+    ]
+  },
+  {
+    "id": 2,
+    "code": "HU",
+    "description": "Rubbage",
+    "color": "#2b814e",
+    "iconName": "delete",
+    "subTypes": [
+      { "id": 51, "code": "ST50", "description": "Interno - RB" },
+      { "id": 12, "code": "ST12", "description": "Limpeza Urbana" },
+      { "id": 29, "code": "ST28", "description": "Outros - RB" },
+      { "id": 65, "code": "ST64", "description": "Recolha de Envolventes" },
+      { "id": 49, "code": "ST48", "description": "Recolha de Indiferenciados" },
+      { "id": 50, "code": "ST49", "description": "Recolha de Monstros" },
+      { "id": 11, "code": "ST11", "description": "Recolha de Resíduos Seletivos" },
+      { "id": 13, "code": "ST13", "description": "Recolha Verdes" },
+      { "id": 62, "code": "ST61", "description": "Salubridade" }
+    ]
+  },
+  {
+    "id": 1,
+    "code": "CM",
+    "description": "Public Signs",
+    "color": "#00787e",
+    "iconName": "signpost",
+    "subTypes": [
+      { "id": 46, "code": "ST45", "description": "Contratação externa - PS" },
+      { "id": 48, "code": "ST47", "description": "Interno - PS" },
+      { "id": 45, "code": "ST44", "description": "Marco Toponímico" },
+      { "id": 47, "code": "ST46", "description": "Outro - PS" },
+      { "id": 6, "code": "ST6", "description": "Sinalética Horizontal" },
+      { "id": 44, "code": "ST43", "description": "Sinalética Vertical" }
+    ]
+  }
+]

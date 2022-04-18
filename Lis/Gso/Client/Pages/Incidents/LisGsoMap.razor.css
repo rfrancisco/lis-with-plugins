@@ -1,0 +1,145 @@
+::deep .map-btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+}
+
+::deep .map-btn-zoom-in,
+::deep .map-btn-zoom-out, 
+::deep .map-btn-search, 
+::deep .map-btn-my-location, 
+::deep .map-btn-map-type {
+    background: white;
+}
+
+::deep .map-btn-search {
+    top: 0px;
+    left: 0px;
+}
+
+::deep .map-btn-map-type {
+    top: 0px;
+    right: 0px;
+}
+
+::deep .map-btn-my-location {
+    bottom: 114px;
+    right: 0px;
+}
+
+::deep .map-btn-zoom-in {
+    bottom: 62px;
+    right: 0px;
+}
+
+::deep .map-btn-zoom-out {
+    bottom: 20px;
+    right: 0px;
+}
+
+::deep .map-btn-report {
+    position: absolute;
+    bottom: 20px;
+    right: 54px;   
+    height: 40px;
+}
+
+::deep .gm-bundled-control-on-bottom {
+    bottom: 210px !important;
+    right: 46px !important;
+}
+
+.gso-types-filters,
+.gso-status-filters {
+    position: absolute;
+}
+
+.gso-types-filters > ul,
+.gso-status-filters > ul {
+    list-style-type: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0;
+    box-shadow: 0 3px 6px #00000029;
+    color: #fff;
+    background-color: #ccc;
+    width: fit-content;
+    display: flex;
+}
+
+.gso-types-filters > ul li,
+.gso-status-filters > ul li {
+    cursor: pointer;
+}
+
+
+.gso-status-filters {
+    bottom: 20px;
+    left: 0px;
+}
+
+.gso-status-filters li {
+    height: 40px;
+    width: 40px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    padding: 0 8px;
+}
+
+.gso-types-filters {
+    top: 50px;
+    bottom: 70px;
+    left: 0px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.gso-types-filters ul {
+    flex-direction: column;
+}
+
+.gso-types-filters li {
+    padding: 8px;
+}
+
+.gso-types-filters .content {
+    display: flex;
+}
+
+.gso-types-filters .title {
+    font-weight: 700;
+    font-size: var(--font-very-small);
+    letter-spacing: 1.14px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.gso-types-filters .icon {
+    width: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.gso-types-filters .counter {
+    flex: 1;
+    height: 30px;
+    background-color: #fff;
+    /* color: #ccc; */
+    box-shadow: 0 3px 6px #00000029;
+    font-weight: 700;
+    font-size: var(--font-large);
+    letter-spacing: 2.29px;
+    text-transform: uppercase;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}

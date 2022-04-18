@@ -1,0 +1,32 @@
+@if (Visible) {
+    <div class="lis-card" style="@Style">
+        <div class="lis-card-header">
+            @Title
+            @if(OnClose.HasDelegate) {
+                <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.Close" OnClick="Close"/>
+            }
+        </div>
+        <div class="lis-card-body">@ChildContent</div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter, EditorRequired]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    [Parameter]
+    public string Style { get; set; }
+
+    Task Close() {
+        return OnClose.HasDelegate ? OnClose.InvokeAsync() : Task.CompletedTask;
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "editor.semanticHighlighting.enabled": true,
+    "csharp.semanticHighlighting.enabled": true,
+      "files.exclude": {
+        "**/.gitignore": true,
+        "**/.vscode": true,
+        "**/*.sln": true,
+        "**/bin": true,
+        "**/obj": true,
+        "**/Properties": true,
+        "**/run.sh": true
+    },
+    "search.exclude": {
+        "**/.vscode": true,
+        "**/bin": true,
+        "**/obj": true
+    }
+}

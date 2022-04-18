@@ -1,0 +1,14 @@
+Estrutura de código
+    - Patrilha de entidades centralizada
+    - Mapa
+        - Pesquisa
+        - Markers e Clusters
+    - Cards
+    - Traduções
+    - Deteção de alterações em formulários quando se tentar navegar
+    - Metadados (possibilidade de persistir na nossa base de dados)
+    - Pesquisa integrada com metadados
+    - Custom indentify e custom infoWindow
+    - Custom manager tabs
+    - Provide list context to plugin (export to csv)
+

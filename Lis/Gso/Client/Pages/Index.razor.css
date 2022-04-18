@@ -1,0 +1,70 @@
+.gso-page {
+  display: flex;
+  height: 100%;
+}
+
+/* the main drawer is a container for the top and bottom drawers*/
+.gso-main-drawer {
+  display: flex;
+  flex-grow: 1;
+  flex-basis: auto;
+  flex-direction: column;
+}
+
+/* default styles for drawers */
+.gso-bottom-drawer,
+.gso-secondary-drawer,
+.gso-primary-drawer {
+  display: block;
+  overflow: hidden;
+  transition: flex-basis 0.5s;
+  background: #fff;
+  z-index: 1;
+}
+
+/* default styles for top ares */
+.gso-top-drawer {
+  flex-grow: 1;
+  flex-basis: auto;
+  padding: 1rem;
+  overflow: auto;
+}
+
+/* default styles for bottom drawer */
+.gso-bottom-drawer {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0px;
+  box-shadow: 0 3px 6px #00000029;
+}
+
+/* styles for when the bottom drawer is visible */
+.gso-bottom-drawer.show {
+  flex-basis: 300px;
+}
+
+/* default styles for secondary drawer */
+.gso-secondary-drawer {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0px;
+  box-shadow: 0 3px 6px #00000029;
+}
+
+/* styles for when the secondary drawer is visible */
+.gso-secondary-drawer.show {
+  flex-basis: 300px;
+}
+
+/* default styles for primary drawer */
+.gso-primary-drawer {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0px;
+  box-shadow: 0 3px 6px #00000029;
+}
+
+/* styles for when the primary drawer is visible */
+.gso-primary-drawer.show {
+  flex-basis: 300px;
+}

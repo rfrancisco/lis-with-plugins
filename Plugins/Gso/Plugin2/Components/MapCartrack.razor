@@ -1,0 +1,15 @@
+@inject IJSRuntime JSRuntime
+
+<div style="position: absolute; top: 200px; right: 0px;" class="map-btn">
+    <MudIconButton Class="map-btn" Icon="@Icons.Filled.DirectionsCar" Variant="Variant.Filled" Color="Color.Tertiary" Size="Size.Medium" OnClick="GenerateRandomMarker" />
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync() {
+        await MapExtensions.Instance.InitializeAsync(JSRuntime);
+    }
+
+    async Task GenerateRandomMarker() {
+        await MapExtensions.Instance.GenerateRandomMarker();
+    }
+}

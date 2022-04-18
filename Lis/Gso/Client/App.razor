@@ -1,0 +1,22 @@
+﻿@inject IGsoPluginManager GsoPluginMan
+
+<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@pluginsAssemblies">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(Shell)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(Shell)">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+@code {
+    Assembly[] pluginsAssemblies = { };
+
+    protected override void OnInitialized() {
+        pluginsAssemblies = GsoPluginMan.AvailablePluginsAssemblies.ToArray();
+    }
+}

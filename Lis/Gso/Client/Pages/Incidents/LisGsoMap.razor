@@ -1,0 +1,130 @@
+@inherits LisGsoBaseActivity
+
+@inject NavigationManager NavManager
+@inject IGsoHeaderManager GsoHeaderMan
+@inject IGsoMapManager GsoMapMan
+@inject ISnackbar Snackbar
+@inject GsoStatusService GsoStatusSvc
+@inject GsoTypeService GsoTypeSvc
+
+<div style="padding: 1rem; position: relative; width: 100%; height: 100%;">
+    <div class="map-wrapper" style="position: fixed; overflow: hidden; top: 64px; left: 0; right: 0; bottom: 0;">
+        <div id="map" style="width: 100%; height: 100%;"></div>
+    </div>
+
+    <MudIconButton Class="map-btn map-btn-my-location" Icon="@Icons.Material.Filled.MyLocation" Variant="Variant.Filled" Color="Color.Default" Size="Size.Medium" OnClick="ShowUserCurrentLocation" />
+    <MudIconButton Class="map-btn map-btn-map-type" Icon="@Icons.Material.Filled.Public" Variant="Variant.Filled" Color="Color.Default" Size="Size.Medium" OnClick="ShowNextAvailableMapType" />
+    <MudIconButton Class="map-btn map-btn-search" Icon="@Icons.Material.Filled.Search" Variant="Variant.Filled" Color="Color.Default" Size="Size.Medium" />
+    <MudIconButton Class="map-btn map-btn-zoom-in" Icon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Default" Size="Size.Medium" OnClick="ZoomIn" />
+    <MudIconButton Class="map-btn map-btn-zoom-out" Icon="@Icons.Material.Filled.Remove" Variant="Variant.Filled" Color="Color.Default" Size="Size.Medium" OnClick="ZoomOut" />
+    <MudButton Disabled="GsoNavigation.PrimaryDrawerComponent == typeof(LisGsoIncidentsCreate)" Class="map-btn-report" OnClick="@(() => GsoNavigation.ShowPrimaryActivity("create"))" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add">Report</MudButton>
+
+    @foreach (var action in actions) {
+        @if (action.ComponentType == null) {
+            <MudIconButton Class="" Icon="@action.Icon" Variant="Variant.Filled" Color="Color.Default" Size="Size.Medium" OnClick="@action.OnClick" />
+        } else {
+            <DynamicComponent Type="@action.ComponentType"/>
+        }
+    }
+
+    <div class="gso-types-filters">
+        <ul>
+            <Virtualize Items="@gsoTypes.Keys" Context="type">
+                <li style="background-color: @GetTypeBackground(type);" title="@type.Description" onclick="@(() => ToggleType(type))">
+                    <div class="title">@type.Description</div>
+                    <div class="content">
+                        <div class="icon material-icons">@type.IconName</div>
+                        <div class="counter" style="color: @type.Color;">123</div>
+                    </div>
+                </li>
+            </Virtualize>
+        </ul>
+    </div>
+
+    <div class="gso-status-filters">
+        <ul>
+            <Virtualize Items="@gsoStatuses.Keys" Context="status">
+                <li style="background-color: @GetStatusBackground(status);" title="@status.Description" onclick="@(() => ToggleStatus(status))">
+                    <i class="material-icons">@status.IconName</i>
+                </li>
+            </Virtualize>
+        </ul>
+    </div>
+
+    <div style="position: absolute; top: 0px; left: 50px">
+        <MudButton OnClick="@(() => GsoNavigation.TogglePrimaryActivity("create"))" Variant="Variant.Filled" Color="Color.Primary">Create</MudButton>
+        <MudButton OnClick="@(() => GsoNavigation.TogglePrimaryActivity("details", 238))" Variant="Variant.Filled" Color="Color.Primary">Details</MudButton>
+        <MudButton OnClick="@(() => GsoNavigation.TogglePrimaryActivity("edit", 19))" Variant="Variant.Filled" Color="Color.Primary">Edit</MudButton>
+        <MudButton OnClick="@(() => NavManager.NavigateTo(""))" Variant="Variant.Filled" Color="Color.Primary">Reset</MudButton>
+        <MudButton OnClick="@(() => AddHeaderAction())" Variant="Variant.Filled" Color="Color.Primary">Add Header Action</MudButton>
+    </div>
+</div>
+
+@code {
+    IDictionary<GsoStatus, bool> gsoStatuses = new Dictionary<GsoStatus, bool>();
+    IDictionary<GsoType, bool> gsoTypes = new Dictionary<GsoType, bool>();
+    IEnumerable<GsoAction> actions = new List<GsoAction>();
+    GsoIncident[] _incidents;
+
+    [CascadingParameter]
+    GsoIncident[] Incidents
+    {
+        get { return _incidents; }
+        set {
+            if (_incidents != value) {
+                // The cascading parameter sometimes is updated with the same
+                // value. This code prevents unnecessary rerendering in those cases.
+                _incidents = value;
+                Task.Delay(0).ContinueWith(_=> GsoMapMan.ShowIncidents(_incidents));
+            }
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Necessary to show hide report button when create drawer is displayed or hidden
+        GsoNavigation.NavigationContextChanged += StateHasChanged;
+        await GsoMapMan.Initialize(new() { MapId = "map", Lat = 38.60775371945522, Lng = -9.099350706024318 });
+        actions = GsoPlugins.AvailablePlugins.SelectMany(x => x.IncidentsMapActions);
+        gsoStatuses = (await GsoStatusSvc.GetMany()).ToDictionary(k => k, v => true);
+        gsoTypes = (await GsoTypeSvc.GetMany()).ToDictionary(k => k, v => true);
+    }
+
+    void AddHeaderAction() {
+        GsoHeaderMan.AddAction(new("example", Icons.Custom.Brands.Google, () => { Snackbar.Add("Hi there", Severity.Success); }));
+    }
+
+    void ToggleType(GsoType type) {
+        gsoTypes[type] = !gsoTypes[type];
+        StateHasChanged();
+    }
+
+    void ToggleStatus(GsoStatus status) {
+        gsoStatuses[status] = !gsoStatuses[status];
+        StateHasChanged();
+    }
+
+    string GetStatusBackground(GsoStatus status) {
+        return gsoStatuses[status] ? status.Color : "transparent";
+    }
+
+    string GetTypeBackground(GsoType type) {
+        return gsoTypes[type] ? type.Color : "transparent";
+    }
+
+    async Task ShowNextAvailableMapType() {
+        await GsoMapMan.SetNextAvailableMapTypeId();
+    }
+
+    async Task ShowUserCurrentLocation() {
+        await GsoMapMan.ShowUserCurrentLocation();
+    }
+
+    async Task ZoomIn() {
+        await GsoMapMan.ZoomIn();
+    }
+
+    async Task ZoomOut() {
+        await GsoMapMan.ZoomOut();
+    }
+}

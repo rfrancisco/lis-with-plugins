@@ -1,0 +1,50 @@
+@inject IJSRuntime JSRuntime
+
+<div style="position: absolute; top: 200px; right: 0px;" class="map-btn">
+    <MudIconButton Class="map-btn" Icon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Secondary" Size="Size.Medium" OnClick="Toggle" />
+    @if (visible) {
+        <MudStack Row="true" Spacing="1" Class="" Style="position: fixed; right: 60px; top: 280px;">
+            @foreach (var tool in tools) {
+                <MudIconButton Class="@(activeTool != null && activeTool.Name == tool.Name ? "map-btn active" : "map-btn")" Icon="@tool.Icon"Variant="Variant.Filled" Color="Color.Secondary" Size="Size.Medium" Style="position: relative" OnClick="() => SetDrawingTool(tool)" />
+            }
+            <MudIconButton Class="map-btn" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Secondary" Size="Size.Medium" Style="position: relative" OnClick="() => DeleteSelectedShape()" />
+        </MudStack>
+    }
+</div>
+
+@code {
+    bool visible = false;
+    MapDrawingTool activeTool;
+    MapDrawingTool[] tools = { 
+        new MapDrawingTool("pan", MudBlazor.Icons.Outlined.PanTool),
+        new MapDrawingTool("marker", MudBlazor.Icons.Outlined.AddLocation),
+        new MapDrawingTool("circle", MudBlazor.Icons.Outlined.Circle),
+        new MapDrawingTool("rectangle", MudBlazor.Icons.Outlined.Rectangle),
+        new MapDrawingTool("polyline", MudBlazor.Icons.Outlined.Polyline),
+        new MapDrawingTool("polygon", MudBlazor.Icons.Outlined.Pentagon),
+     };
+
+    protected override async Task OnInitializedAsync() {
+        await MapExtensions.Instance.InitializeAsync(JSRuntime);
+        await MapExtensions.Instance.InitializeDrawingTools();
+    }
+
+    void Toggle() {
+        visible = !visible;
+    }
+
+    async Task SetDrawingTool(MapDrawingTool tool) {
+        activeTool = tool;
+        await MapExtensions.Instance.SetDrawingTool(tool.Name);
+    }
+
+    async Task DeleteSelectedShape() {
+        await MapExtensions.Instance.DeleteSelectedShape();
+    }
+
+    async Task SetColor(string color) {
+        await MapExtensions.Instance.SetColor(color);
+    }
+
+    record MapDrawingTool(string Name, string Icon);
+}

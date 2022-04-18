@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "code": "recebido",
+    "description": "Recebida",
+    "color": "#d72e1b",
+    "clusterIcon": "https://infralobo.city-platform.com/api/media/file-by-path?path=media%2fdefault%2fapp%2fgso%2fpins%2fclusters%2fcluster-recebido-35.png",
+    "iconName": "all_inbox",
+    "isValidation": false,
+    "isExecution": false,
+    "showMobile": false,
+    "startVisible": true,
+    "groupedStatusIds": null
+  },
+  {
+    "id": 2,
+    "code": "validar",
+    "description": "Por validar no terreno",
+    "color": "#d82716",
+    "clusterIcon": "https://infralobo.city-platform.com/api/media/file-by-path?path=media%2fdefault%2fapp%2fgso%2fpins%2fclusters%2fcluster-porvalidar-35.png",
+    "iconName": "not_listed_location",
+    "isValidation": true,
+    "isExecution": false,
+    "showMobile": true,
+    "startVisible": true,
+    "groupedStatusIds": null
+  },
+  {
+    "id": 3,
+    "code": "validado",
+    "description": "Validada no Terreno",
+    "color": "#ce5f1e",
+    "clusterIcon": "https://infralobo.city-platform.com/api/media/file-by-path?path=media%2fdefault%2fapp%2fgso%2fpins%2fclusters%2fcluster-validada-35.png",
+    "iconName": "location_on",
+    "isValidation": false,
+    "isExecution": false,
+    "showMobile": true,
+    "startVisible": true,
+    "groupedStatusIds": null
+  },
+  {
+    "id": 4,
+    "code": "execucao",
+    "description": "Em execução",
+    "color": "#ff8e21",
+    "clusterIcon": "https://infralobo.city-platform.com/api/media/file-by-path?path=media%2fdefault%2fapp%2fgso%2fpins%2fclusters%2fcluster-emexecucao-35.png",
+    "iconName": "cached",
+    "isValidation": false,
+    "isExecution": true,
+    "showMobile": true,
+    "startVisible": true,
+    "groupedStatusIds": null
+  },
+  {
+    "id": 5,
+    "code": "executado",
+    "description": "Executada",
+    "color": "#ebb000",
+    "clusterIcon": "https://infralobo.city-platform.com/api/media/file-by-path?path=media%2fdefault%2fapp%2fgso%2fpins%2fclusters%2fcluster-executada-35.png",
+    "iconName": "done",
+    "isValidation": false,
+    "isExecution": false,
+    "showMobile": true,
+    "startVisible": true,
+    "groupedStatusIds": null
+  },
+  {
+    "id": 6,
+    "code": "concluido",
+    "description": "Concluída",
+    "color": "#4db300",
+    "clusterIcon": "https://infralobo.city-platform.com/api/media/file-by-path?path=media%2fdefault%2fapp%2fgso%2fpins%2fclusters%2fcluster-concluida-35.png",
+    "iconName": "verified",
+    "isValidation": false,
+    "isExecution": false,
+    "showMobile": false,
+    "startVisible": true,
+    "groupedStatusIds": null
+  },
+  {
+    "id": 7,
+    "code": "encerrado",
+    "description": "Encerrada",
+    "color": "#000000",
+    "clusterIcon": "https://infralobo.city-platform.com/api/media/file-by-path?path=media%2fdefault%2fapp%2fgso%2fpins%2fclusters%2fcluster-encerrada-35.png",
+    "iconName": "archive",
+    "isValidation": false,
+    "isExecution": false,
+    "showMobile": false,
+    "startVisible": true,
+    "groupedStatusIds": null
+  }
+]

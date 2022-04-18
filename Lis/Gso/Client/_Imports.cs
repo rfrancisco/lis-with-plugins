@@ -1,0 +1,17 @@
+﻿global using System.Reflection;
+global using System.Runtime.Loader;
+global using System.Net.Http.Json;
+global using Microsoft.JSInterop;
+global using Microsoft.AspNetCore.Components;
+global using Microsoft.AspNetCore.Components.Routing;
+global using Microsoft.AspNetCore.Components.Web;
+global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+global using Microsoft.AspNetCore.WebUtilities;
+global using MudBlazor;
+global using MudBlazor.Services;
+global using Blazored.LocalStorage;
+global using Lis.Gso.Client;
+global using Lis.Gso.Client.Services;
+global using Lis.Gso.Client.Services.Api;
+global using Lis.Gso.Shared;
+global using Lis.Gso.Client.Pages.Incidents;

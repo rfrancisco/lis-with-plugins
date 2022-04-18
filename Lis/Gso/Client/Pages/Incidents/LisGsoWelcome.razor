@@ -1,0 +1,31 @@
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">Welcome</MudText>
+    </TitleContent>
+    <DialogContent>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in tellus lorem. Aenean ut laoreet velit. Nullam non urna vehicula sapien tempus sollicitudin. Pellentesque vitae pellentesque felis. Nullam faucibus molestie turpis sit amet semper. Nunc laoreet est tellus, et maximus massa fringilla vitae. Sed hendrerit cursus dolor sed consequat. Nullam ut nisl at ipsum varius fermentum sit amet in ligula. Praesent vestibulum quis elit eu sagittis. Nam feugiat leo vitae mi pellentesque sodales. Integer malesuada hendrerit faucibus. Morbi id tellus ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce tristique, ex et rhoncus tristique, libero odio fermentum dolor, id tristique massa sapien ut augue. Etiam quis euismod urna, eget consequat justo.</p>
+    </DialogContent>
+    <DialogActions>
+        <MudFocusTrap Disabled="false" DefaultFocus="DefaultFocus.Element" Class="d-flex flex-1">
+            <MudCheckBox @bind-Checked="@dontShowAgain" Label="Don't show again"></MudCheckBox>
+            <MudSpacer/>
+            <MudButton OnClick="Explore">Explore</MudButton>
+            <MudButton OnClick="Report" Color="Color.Primary">Report</MudButton>
+        </MudFocusTrap>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance Dialog { get; set; }
+
+    bool dontShowAgain = false;
+
+    void Explore() {
+        Dialog.Close(DialogResult.Ok(new Tuple<string, bool>("explore", dontShowAgain)));
+    }
+    
+    void Report() {
+        Dialog.Close(DialogResult.Ok(new Tuple<string, bool>("report", dontShowAgain)));
+    }
+}

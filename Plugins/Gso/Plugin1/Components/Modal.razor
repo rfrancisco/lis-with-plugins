@@ -1,0 +1,25 @@
+@using MudBlazor
+
+<MudDialog Style="border: 4px dashed var(--mud-palette-secondary);">
+    <DialogContent>
+        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras egestas nec nibh dictum interdum. Proin sollicitudin magna leo, eu aliquet arcu interdum eget. Proin luctus laoreet turpis, vel aliquam metus convallis at. In eu placerat lorem, nec porta ligula. Morbi at nulla ac nisi egestas porta eu ut nibh. In malesuada arcu in augue finibus mollis. Fusce consequat varius lacinia. Ut vulputate auctor posuere.</p>
+        <p>Mauris eget leo id leo vehicula iaculis. Quisque eget vehicula metus. Curabitur massa felis, consequat vel bibendum et, luctus eu felis. Sed vestibulum ante pellentesque aliquet dictum. Curabitur eget lacinia dolor. Vestibulum faucibus vulputate pulvinar. Morbi tempor bibendum est. Pellentesque ultrices semper ipsum, sit amet placerat mauris laoreet a. Quisque leo risus, vulputate quis laoreet vestibulum, commodo et turpis. Maecenas ut fringilla lorem. Phasellus neque quam, aliquam eu molestie et, porttitor et mi. Sed fermentum nibh nisi. Suspendisse pretium dignissim lacinia. Proin iaculis, augue sed tempus dignissim, nulla eros facilisis augue, ut vulputate velit est sed nisl. Morbi molestie, tortor in ultrices scelerisque, tortor ex consectetur mauris, vitae lobortis nibh dui vel odio.</p>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; }
+
+    void Submit() {
+        MudDialog.Close(DialogResult.Ok(true));
+    }
+
+    void Cancel() {
+        MudDialog.Cancel();
+    }
+}

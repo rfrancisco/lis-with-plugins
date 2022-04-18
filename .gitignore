@@ -1,0 +1,28 @@
+# IDE - Rider
+**/.idea
+**/*.user
+
+# IDE - Visual Studio for Mac
+**/.vs
+
+# IDE - VSCode
+**/.vscode/*
+!**/.vscode/settings.json
+!**/.vscode/tasks.json
+!**/.vscode/launch.json
+!**/.vscode/extensions.json
+**/.history/*
+
+# System Files
+**/.DS_Store
+**/Thumbs.db
+
+# C#
+**/bin
+**/obj
+
+# Terraform
+**/.terraform
+
+# Dll files
+**/*.dll

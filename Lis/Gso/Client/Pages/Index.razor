@@ -1,0 +1,58 @@
+﻿@page "/"
+@page "/create"
+@page "/edit/{Id:int}"
+@page "/details/{Id:int}"
+
+@inject IGsoWelcomeManager GsoWelcomeMan
+@inject IGsoHeaderManager GsoHeaderMan
+@inject IGsoNavigationManager GsoNavigationMan
+@inject IGsoPluginManager GsoPluginMan
+@inject GsoIncidentsService GsoIncidentsSvc
+
+<PageTitle>GSO</PageTitle>
+
+<CascadingValue Value="Id">
+<CascadingValue Value="Incidents">
+    <div class="gso-page">
+        <div class="gso-main-drawer">
+            <div class="gso-top-drawer">
+                <LisGsoMap />
+            </div>
+            <div class="gso-bottom-drawer @(GsoNavigationMan.BottomDrawerComponent != null ? "show" : "")">
+                @if (GsoNavigationMan.BottomDrawerComponent != null) {
+                    <DynamicComponent Type="@GsoNavigationMan.BottomDrawerComponent"/>
+                }
+          </div>
+        </div>
+        <div class="gso-secondary-drawer @(GsoNavigationMan.SecondaryDrawerComponent != null ? "show" : "")">
+            @if (GsoNavigationMan.SecondaryDrawerComponent != null) {
+                <DynamicComponent Type="@GsoNavigationMan.SecondaryDrawerComponent"/>
+            }
+        </div>
+        <div class="gso-primary-drawer @(GsoNavigationMan.PrimaryDrawerComponent != null ? "show" : "")">
+            @if (GsoNavigationMan.PrimaryDrawerComponent != null) {
+                <DynamicComponent Type="@GsoNavigationMan.PrimaryDrawerComponent"/>
+            }
+        </div>
+    </div>
+</CascadingValue>
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    GsoIncident[] Incidents { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        GsoNavigationMan.Initialize();
+        GsoNavigationMan.NavigationContextChanged += StateHasChanged;
+        var headerActions = new GsoAction[] {
+            new("List", Icons.Outlined.ListAlt, () => GsoNavigationMan.ToggleSecondaryActivity("list")),
+            new("Report", Icons.Outlined.PieChart, () => GsoNavigationMan.ToggleSecondaryActivity("report"))
+        }.Concat(GsoPluginMan.AvailablePlugins.SelectMany(x => x.HeaderActions));
+        GsoHeaderMan.Initialize("GSO", "", headerActions);
+        GsoWelcomeMan.Show();
+        Incidents = await GsoIncidentsSvc.GetMany();
+    }
+}

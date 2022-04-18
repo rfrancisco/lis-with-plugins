@@ -1,0 +1,8 @@
+@inject IGsoNavigationManager GsoNavigationMan
+
+<LisCard Title="Create overriden by plugin3!" Style="border: 4px dashed var(--mud-palette-warning);">
+    <p style="color: var(--mud-palette-primary)">This component completly replaces the standard create screen. This could be helpfull in cases where the customization level is beyond what the plugin form extensions allow.</p>
+    <MudTextField T="string" Label="Address"></MudTextField>
+    <MudTextField T="string" Label="Details" Clearable="true" HelperText="Please describe the incident" Lines="5"></MudTextField>
+    <MudButton Class="mt-4" OnClick="@(() => GsoNavigationMan.NavigateTo(""))" Variant="Variant.Filled" Color="Color.Primary">Save and Close</MudButton>
+</LisCard>

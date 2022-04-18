@@ -1,0 +1,16 @@
+ul li {
+    height: 64px;
+    display: flex;
+    box-shadow: 0 1px 6px #00000029;
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    cursor: pointer;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+}
+.list-actions {
+    display: flex;
+    justify-content: right;
+}

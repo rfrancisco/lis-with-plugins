@@ -1,0 +1,15 @@
+@inject IJSRuntime JSRuntime
+
+<div style="position: absolute; top: 100px; right: 0px;" class="map-btn">
+    <MudIconButton Class="map-btn" Icon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Secondary" Size="Size.Medium" OnClick="ZoomIn" />
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync() {
+        await MapExtensions.Instance.InitializeAsync(JSRuntime);
+    }
+
+    async Task ZoomIn() {
+        await MapExtensions.Instance.ZoomIn();
+    }
+}
