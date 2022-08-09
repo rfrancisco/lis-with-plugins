@@ -24,7 +24,7 @@ public class GsoPluginManager : IGsoPluginManager {
             var availablePlugins = await _httpClient.GetFromJsonAsync<string[]>("api/plugins");
             foreach (var plugin in availablePlugins) {
                 try {
-                    _logger.LogInformation($"Loading plugin {plugin}");
+                    _logger.LogInformation("Loading plugin {plugin}", plugin);
                     var bytes = await _httpClient.GetStreamAsync($"/plugins/{plugin}.dll");
                     var assembly = AssemblyLoadContext.Default.LoadFromStream(bytes);
                     var type = assembly.GetType($"{plugin}.Plugin");

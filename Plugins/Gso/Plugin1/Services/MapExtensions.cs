@@ -41,12 +41,20 @@ public class MapExtensions {
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.loadGeoJson");
     }
 
-    public async Task InitializeDrawingTools() {
-        await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.initializeDrawingTools");
+    public async Task InitializeDrawingTools<T>(DotNetObjectReference<T> objRef) where T : class {
+        await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.initializeDrawingTools", objRef);
     }
 
     public async Task SetDrawingTool(string tool) { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.setDrawingTool", tool);
+    }
+
+    public async Task CopySelectedShape() { 
+        await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.copySelectedShape");
+    }
+
+    public async Task PasteSelectedShape() { 
+        await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.pasteSelectedShape");
     }
 
     public async Task DeleteSelectedShape() { 

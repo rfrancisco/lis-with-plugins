@@ -27,7 +27,10 @@ export function initMap(options, objRef) {
         mapTypeControlOptions: {
             mapTypeIds: ["roadmap", "hybrid"],
             style: google.maps.MapTypeControlStyle.DEFAULT,
-        }
+        },
+        heading: 320,
+        tilt: 47.5,
+        mapId: "90f87356969d889c",
     };
 
     // Initializes a new google map on the html element

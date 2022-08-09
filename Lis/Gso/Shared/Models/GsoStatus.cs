@@ -7,8 +7,8 @@ public record GsoStatus(
     string Color,
     string ClusterIcon,
     string IconName,
-    bool isValidation,
-    bool isExecution,
+    bool IsValidation,
+    bool IsExecution,
     bool ShowMobile,
-    bool startVisible
+    bool StartVisible
 );

@@ -3,6 +3,8 @@ let drawingManager;
 let selectedTool;
 let colors = ['#1E90FF', '#FF1493', '#32CD32', '#FF8C00', '#4B0082'];
 let selectedShape;
+let shapeInClipboard;
+let dotNetObjRef;
 
 window.plugin1MapExtensions = {
 
@@ -29,7 +31,9 @@ window.plugin1MapExtensions = {
         }
     },
 
-    initializeDrawingTools: function () {
+    initializeDrawingTools: function (objRef) {
+        dotNetObjRef = objRef;
+
         let map = window.gso.map;
         drawingManager = new google.maps.drawing.DrawingManager({
             drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -62,44 +66,18 @@ window.plugin1MapExtensions = {
             map: map
         });
 
+        // Opens the map context menu
+        google.maps.event.addListener(map, 'contextmenu', (ev) => {
+            dotNetObjRef.invokeMethodAsync('ShowContextMenu', ev.domEvent.clientX, ev.domEvent.clientY, 'map');
+        });
+
         google.maps.event.addListener(drawingManager, 'overlaycomplete', (e) => {
             const newShape = e.overlay;
+            // Add a new type property to the shape object.
+            // This is used later on to identity the type of the shape.
             newShape.type = e.type;
 
-            if (e.type !== google.maps.drawing.OverlayType.MARKER) {
-                // Switch back to non-drawing mode after drawing a shape.
-                selectedTool = 'pan';
-                drawingManager.setDrawingMode(null);
-
-                // Add an event listener that selects the newly-drawn shape when the user
-                // mouses down on it.
-                google.maps.event.addListener(newShape, 'click', (ev) => {
-                    if (ev.vertex !== undefined) {
-                        if (newShape.type === google.maps.drawing.OverlayType.POLYGON) {
-                            const path = newShape.getPaths().getAt(ev.path);
-                            path.removeAt(ev.vertex);
-                            if (path.length < 3) {
-                                newShape.setMap(null);
-                            }
-                        }
-                        if (newShape.type === google.maps.drawing.OverlayType.POLYLINE) {
-                            const path = newShape.getPath();
-                            path.removeAt(ev.vertex);
-                            if (path.length < 2) {
-                                newShape.setMap(null);
-                            }
-                        }
-                    }
-                    this.setSelection(newShape);
-                });
-                this.setSelection(newShape);
-            }
-            else {
-                google.maps.event.addListener(newShape, 'click', () => {
-                    this.setSelection(newShape);
-                });
-                this.setSelection(newShape);
-            }
+            this.addShape(newShape);
         });
 
         // Clear the current selection when the drawing mode is changed, or when the
@@ -152,6 +130,25 @@ window.plugin1MapExtensions = {
         selectedShape = shape;
     },
 
+    copySelectedShape: function () {
+        console.log('inside copy #1');
+        if (selectedShape) {
+            console.log('inside copy #2');
+            shapeInClipboard = selectedShape;
+        }
+    },
+
+    pasteSelectedShape: function () {
+        console.log('inside paste #1');
+        if (shapeInClipboard) {
+            console.log('inside paste #2');
+            const clone = this.cloneShape(shapeInClipboard)
+            this.addShape(clone);
+            this.setSelection(clone);
+            shapeInClipboard = clone;
+        }
+    },
+
     deleteSelectedShape: function () {
         if (selectedShape) {
             selectedShape.setMap(null);
@@ -193,5 +190,159 @@ window.plugin1MapExtensions = {
     setColor: function (color) {
         this.selectColor(color);
         this.setSelectedShapeColor(color);
-    }
+    },
+
+    addShape(shape) {
+        if (shape.type !== google.maps.drawing.OverlayType.MARKER) {
+            // Switch back to non-drawing mode after drawing a shape.
+            selectedTool = 'pan';
+            drawingManager.setDrawingMode(null);
+
+            // Add an event listener that selects the newly-drawn shape when the user
+            // mouses down on it.
+            google.maps.event.addListener(shape, 'contextmenu', (ev) => {
+                dotNetObjRef.invokeMethodAsync('ShowContextMenu', ev.domEvent.clientX, ev.domEvent.clientY, 'shape');
+            });
+
+            // Add an event listener that selects the newly-drawn shape when the user
+            // mouses down on it.
+            google.maps.event.addListener(shape, 'click', (ev) => {
+
+                if (ev.domEvent.altKey) {
+                // Create a copy of the shape on click
+                const clone = this.cloneShape(shape)
+                this.addShape(clone);
+                this.setSelection(clone);
+                    
+                }
+                if (ev.vertex !== undefined) {
+
+                    if (shape.type === google.maps.drawing.OverlayType.POLYGON) {
+                        const path = shape.getPaths().getAt(ev.path);
+                        path.removeAt(ev.vertex);
+                        if (path.length < 3) {
+                            shape.setMap(null);
+                        }
+                    }
+                    if (shape.type === google.maps.drawing.OverlayType.POLYLINE) {
+                        const path = shape.getPath();
+                        path.removeAt(ev.vertex);
+                        if (path.length < 2) {
+                            shape.setMap(null);
+                        }
+                    }
+                }
+                this.setSelection(shape);
+            });
+
+            this.setSelection(shape);
+        }
+        else {
+            google.maps.event.addListener(shape, 'click', () => {
+                this.setSelection(shape);
+            });
+            this.setSelection(shape);
+        }
+    },
+
+    cloneShape(shape) {
+        let clone = null;
+
+        switch (shape.type) {
+            case google.maps.drawing.OverlayType.POLYGON:
+                const offsetPaths = [];
+                for (let i = 0; i < shape.getPath().length; i++) {
+                    const path = shape.getPath().getAt(i);
+                    const offsetPath = this.offsetCoordinate(path, 50, 50);
+                    offsetPaths.push(offsetPath);
+                }
+                clone = new google.maps.Polygon({
+                    paths: offsetPaths,
+                    strokeWeight: shape.strokeWeight,
+                    fillColor: shape.fillColor,
+                    fillOpacity: shape.fillOpacity,
+                    map: shape.getMap(),
+                    editable: true,
+                    draggable: true
+                });
+                break;
+            case google.maps.drawing.OverlayType.POLYLINE:
+                console.log('-> POLYLINE');
+                break;
+            case google.maps.drawing.OverlayType.CIRCLE:
+                const offsetCenter = this.offsetCoordinate(shape.getCenter(), 50, 50);
+                debugger;
+                clone = new google.maps.Circle({
+                    strokeWeight: shape.strokeWeight,
+                    fillColor: shape.fillColor,
+                    fillOpacity: shape.fillOpacity,
+                    center: offsetCenter,
+                    radius: shape.getRadius(),
+                    map: shape.getMap(),
+                    editable: true,
+                    draggable: true
+                });
+                break;
+            case google.maps.drawing.OverlayType.RECTANGLE:
+                debugger;
+                const bounds = shape.getBounds();
+                const offsetBounds = {
+                    north: this.offsetCoordinate(bounds.getNorthEast(), 50, 50).lat(),
+                    south: this.offsetCoordinate(bounds.getSouthWest(), 50, 50).lat(),
+                    east: this.offsetCoordinate(bounds.getNorthEast(), 50, 50).lng(),
+                    west: this.offsetCoordinate(bounds.getSouthWest(), 50, 50).lng()
+                };
+                console.log(bounds.toJSON());
+                console.log(offsetBounds);
+                clone = new google.maps.Rectangle({
+                    strokeWeight: shape.strokeWeight,
+                    fillColor: shape.fillColor,
+                    fillOpacity: shape.fillOpacity,
+                    center: offsetCenter,
+                    radius: shape.getRadius(),
+                    bounds: offsetBounds,
+                    map: shape.getMap(),
+                    editable: true,
+                    draggable: true
+                });
+                console.log('-> RECTANGLE');
+                break;
+            default:
+                console.log('-> OTHER');
+                break;
+        }
+
+        if (clone) {
+            // Add a new type property to the shape object.
+            // This is used later on to identity the type of the shape.
+            clone.type = shape.type;
+        }
+
+        return clone;
+        // console.log('adding')
+        // var p = new google.maps.Polygon();
+        // p.setPaths(newShape.getPaths());
+        // p.setMap(map);
+
+        // console.log('added')
+        // console.log(newShape.getPaths())
+    },
+
+    offsetCoordinate(latlng, offsetx, offsety) {
+        // latlng is the apparent centre-point
+        // offsetx is the distance you want that point to move to the right, in pixels
+        // offsety is the distance you want that point to move upwards, in pixels
+        // offset can be negative
+        // offsetx and offsety are both optional
+        const map = window.gso.map;
+        const scale = Math.pow(2, map.getZoom());
+        const projectedCoordinate = map.getProjection().fromLatLngToPoint(latlng);
+        const pixelOffset = new google.maps.Point((offsetx / scale) || 0, (offsety / scale) || 0);
+        const newCoordinate = new google.maps.Point(
+            projectedCoordinate.x - pixelOffset.x,
+            projectedCoordinate.y + pixelOffset.y
+        );
+
+        return map.getProjection().fromPointToLatLng(newCoordinate);
+    },
 };

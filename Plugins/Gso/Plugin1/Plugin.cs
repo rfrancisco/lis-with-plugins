@@ -8,13 +8,13 @@ public class Plugin : GsoPluginBase {
 
     public Plugin(IServiceProvider sp) : base(sp) {
         HeaderActions = new List<GsoAction>() {
-            new ("Show modal", Icons.Filled.WebAsset, () => ShowModal(), null, Color.Secondary),
+            //new ("Show modal", Icons.Filled.WebAsset, () => ShowModal(), null, Color.Secondary),
             new ("SHow toast", Icons.Filled.NotificationAdd, () => ShowSnackbar(), null, Color.Secondary),
             new ("Interact with navigation service", Icons.Filled.Edit, () => ToggleEdit(), null, Color.Secondary),
         };
         IncidentsMapActions = new List<GsoAction>() {
-            new ("Zomm in", "", null, typeof(MapZoomIn)),
-            new ("Zoom out", "", null, typeof(MapZoomOut)),
+            //new ("Zomm in", "", null, typeof(MapZoomIn)),
+            //new ("Zoom out", "", null, typeof(MapZoomOut)),
             new ("Load GeoJson", "", null, typeof(MapGeoJson)),
             new ("Drawing Tools", "", null, typeof(MapDrawingTools))
         };

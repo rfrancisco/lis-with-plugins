@@ -86,3 +86,22 @@ h1:focus {
 /* Rules for using icons as white on a dark background. */
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+
+
+/* Fix issue with context-menus */
+.mud-popover.context-menu {
+  position: fixed;
+  display: none;
+}
+
+.mud-popover.context-menu.mud-popover-open {
+  display: block;
+}
+
+/* Fix issue with context-menus */
+.mud-menu.context-menu-fix {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}

@@ -11,10 +11,25 @@
         </MudStack>
     }
 </div>
+<MudMenu PositionAtCursor="true" @ref="ctxMenu" Dense="true" PopoverClass="context-menu" Class="context-menu-fix">
+    @switch (ctxMenuContext) {
+        case "map":
+            <MudMenuItem OnClick="() => PasteSelectedShape()">Paste</MudMenuItem>
+            break;
+        case "shape":
+            <MudMenuItem OnClick="() => CopySelectedShape()">Copy</MudMenuItem>
+            <MudMenuItem OnClick="() => PasteSelectedShape()">Paste</MudMenuItem>
+            <MudMenuItem OnClick="() => DeleteSelectedShape()">Delete</MudMenuItem>
+            break;
+    }
+</MudMenu>
 
 @code {
     bool visible = false;
     MapDrawingTool activeTool;
+    MudMenu ctxMenu;
+    string ctxMenuContext;
+    DotNetObjectReference<MapDrawingTools> objRef;
     MapDrawingTool[] tools = { 
         new MapDrawingTool("pan", MudBlazor.Icons.Outlined.PanTool),
         new MapDrawingTool("marker", MudBlazor.Icons.Outlined.AddLocation),
@@ -25,8 +40,9 @@
      };
 
     protected override async Task OnInitializedAsync() {
+        objRef = DotNetObjectReference.Create(this);
         await MapExtensions.Instance.InitializeAsync(JSRuntime);
-        await MapExtensions.Instance.InitializeDrawingTools();
+        await MapExtensions.Instance.InitializeDrawingTools(objRef);
     }
 
     void Toggle() {
@@ -38,12 +54,41 @@
         await MapExtensions.Instance.SetDrawingTool(tool.Name);
     }
 
+    async Task CopySelectedShape() {
+        Console.WriteLine("c# copy");
+        await MapExtensions.Instance.CopySelectedShape();
+    }
+
+    async Task PasteSelectedShape() {
+        Console.WriteLine("c# paste");
+        await MapExtensions.Instance.PasteSelectedShape();
+    }
+
     async Task DeleteSelectedShape() {
+        Console.WriteLine("c# delete");
         await MapExtensions.Instance.DeleteSelectedShape();
     }
 
     async Task SetColor(string color) {
         await MapExtensions.Instance.SetColor(color);
+    }
+
+    [JSInvokable]
+    public void ShowContextMenu(int clientX, int clientY, string context) {
+        // Set the current context menu context (shape or map)
+        ctxMenuContext = context;
+
+        Console.WriteLine($"{clientX} - {clientY}");
+        ctxMenu.OpenMenu(new MouseEventArgs() {
+            OffsetX = clientX,
+            OffsetY = clientY,
+        });
+    }
+
+    [JSInvokable]
+    public void HideContextMenu() {
+        Console.WriteLine("Close context menu");
+        ctxMenu.CloseMenu();
     }
 
     record MapDrawingTool(string Name, string Icon);
