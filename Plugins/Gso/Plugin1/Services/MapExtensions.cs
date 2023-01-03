@@ -12,14 +12,12 @@ public class MapExtensions {
 
     public static MapExtensions Instance {
         get {
-            if (_instance == null) {
-                _instance = new MapExtensions();
-            }
+            _instance ??= new MapExtensions();
             return _instance;
         }
     }
 
-    public async Task InitializeAsync(IJSRuntime jSRuntime) {
+    public static async Task InitializeAsync(IJSRuntime jSRuntime) {
         if (!_initialized) {
             _jSRuntime = jSRuntime;
             var assembly = Assembly.GetAssembly(typeof(MapExtensions));
@@ -29,39 +27,39 @@ public class MapExtensions {
         }
     }
 
-    public async Task ZoomIn() {
+    public static async Task ZoomIn() {
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.zoomIn");
     }
 
-    public async Task ZoomOut() {
+    public static async Task ZoomOut() {
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.zoomOut");
     }
 
-    public async Task LoadGeoJson() {
+    public static async Task LoadGeoJson() {
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.loadGeoJson");
     }
 
-    public async Task InitializeDrawingTools<T>(DotNetObjectReference<T> objRef) where T : class {
+    public static async Task InitializeDrawingTools<T>(DotNetObjectReference<T> objRef) where T : class {
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.initializeDrawingTools", objRef);
     }
 
-    public async Task SetDrawingTool(string tool) { 
+    public static async Task SetDrawingTool(string tool) { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.setDrawingTool", tool);
     }
 
-    public async Task CopySelectedShape() { 
+    public static async Task CopySelectedShape() { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.copySelectedShape");
     }
 
-    public async Task PasteSelectedShape() { 
+    public static async Task PasteSelectedShape() { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.pasteSelectedShape");
     }
 
-    public async Task DeleteSelectedShape() { 
+    public static async Task DeleteSelectedShape() { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.deleteSelectedShape");
     }
 
-    public async Task SetColor(string color) { 
+    public static async Task SetColor(string color) { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.setColor", color);
     }
 

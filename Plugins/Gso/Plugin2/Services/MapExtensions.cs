@@ -12,14 +12,12 @@ public class MapExtensions {
 
     public static MapExtensions Instance {
         get {
-            if (_instance == null) {
-                _instance = new MapExtensions();
-            }
+            _instance ??= new MapExtensions();
             return _instance;
         }
     }
 
-    public async Task InitializeAsync(IJSRuntime jSRuntime) {
+    public static async Task InitializeAsync(IJSRuntime jSRuntime) {
         if (!_initialized) {
             _jSRuntime = jSRuntime;
             var assembly = Assembly.GetAssembly(typeof(MapExtensions));
@@ -29,7 +27,7 @@ public class MapExtensions {
         }
     }
 
-    public async Task GenerateRandomMarker() {
+    public static async Task GenerateRandomMarker() {
         await _jSRuntime.InvokeVoidAsync("plugin2MapExtensions.generateRandomMarker");
     }
 

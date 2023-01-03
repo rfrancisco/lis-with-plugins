@@ -12,14 +12,12 @@ public class JsInvoker {
 
     public static JsInvoker Instance {
         get {
-            if (_instance == null) {
-                _instance = new JsInvoker();
-            }
+            _instance ??= new JsInvoker();
             return _instance;
         }
     }
 
-    public void InitializeAsync(IServiceProvider sp) {
+    public static void InitializeAsync(IServiceProvider sp) {
         if (!_initialized) {
             _jSRuntime = (IJSInProcessRuntime)sp.GetService(typeof(IJSRuntime));
             var assembly = Assembly.GetAssembly(typeof(JsInvoker));
@@ -28,7 +26,7 @@ public class JsInvoker {
         }
     }
 
-    public void DownloadFile(string fileName, string contentType, byte[] content) {
+    public static void DownloadFile(string fileName, string contentType, byte[] content) {
          _jSRuntime.InvokeVoid("plugin3JsInvoker.downloadFile", fileName, contentType, content);
     }
 
