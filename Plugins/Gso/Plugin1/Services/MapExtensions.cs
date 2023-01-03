@@ -17,7 +17,7 @@ public class MapExtensions {
         }
     }
 
-    public static async Task InitializeAsync(IJSRuntime jSRuntime) {
+    public async Task InitializeAsync(IJSRuntime jSRuntime) {
         if (!_initialized) {
             _jSRuntime = jSRuntime;
             var assembly = Assembly.GetAssembly(typeof(MapExtensions));
@@ -27,39 +27,39 @@ public class MapExtensions {
         }
     }
 
-    public static async Task ZoomIn() {
+    public async Task ZoomIn() {
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.zoomIn");
     }
 
-    public static async Task ZoomOut() {
+    public async Task ZoomOut() {
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.zoomOut");
     }
 
-    public static async Task LoadGeoJson() {
+    public async Task LoadGeoJson() {
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.loadGeoJson");
     }
 
-    public static async Task InitializeDrawingTools<T>(DotNetObjectReference<T> objRef) where T : class {
+    public async Task InitializeDrawingTools<T>(DotNetObjectReference<T> objRef) where T : class {
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.initializeDrawingTools", objRef);
     }
 
-    public static async Task SetDrawingTool(string tool) { 
+    public async Task SetDrawingTool(string tool) { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.setDrawingTool", tool);
     }
 
-    public static async Task CopySelectedShape() { 
+    public async Task CopySelectedShape() { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.copySelectedShape");
     }
 
-    public static async Task PasteSelectedShape() { 
+    public async Task PasteSelectedShape() { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.pasteSelectedShape");
     }
 
-    public static async Task DeleteSelectedShape() { 
+    public async Task DeleteSelectedShape() { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.deleteSelectedShape");
     }
 
-    public static async Task SetColor(string color) { 
+    public async Task SetColor(string color) { 
         await _jSRuntime.InvokeVoidAsync("plugin1MapExtensions.setColor", color);
     }
 

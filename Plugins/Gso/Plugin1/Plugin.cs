@@ -8,9 +8,9 @@ public class Plugin : GsoPluginBase {
 
     public Plugin(IServiceProvider sp) : base(sp) {
         HeaderActions = new List<GsoAction>() {
-            //new ("Show modal", Icons.Filled.WebAsset, () => ShowModal(), null, Color.Secondary),
-            new ("SHow toast", Icons.Filled.NotificationAdd, () => ShowSnackbar(), null, Color.Secondary),
-            new ("Interact with navigation service", Icons.Filled.Edit, () => ToggleEdit(), null, Color.Secondary),
+            //new ("Show modal", Icons.Material.Filled.WebAsset, () => ShowModal(), null, Color.Secondary),
+            new ("SHow toast", Icons.Material.Filled.NotificationAdd, () => ShowSnackbar(), null, Color.Secondary),
+            new ("Interact with navigation service", Icons.Material.Filled.Edit, () => ToggleEdit(), null, Color.Secondary),
         };
         IncidentsMapActions = new List<GsoAction>() {
             //new ("Zomm in", "", null, typeof(MapZoomIn)),

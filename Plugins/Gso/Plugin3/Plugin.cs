@@ -10,14 +10,14 @@ namespace Lis.Gso.Plugin3;
 public class Plugin : GsoPluginBase {
     public Plugin(IServiceProvider sp) : base(sp) {
         HeaderActions = new List<GsoAction>() {
-            new ("Show custom content in bottom drawer", Icons.Filled.PictureInPicture, () => ShowControlInDrawer(), null, Color.Warning)
+            new ("Show custom content in bottom drawer", Icons.Material.Filled.PictureInPicture, () => ShowControlInDrawer(), null, Color.Warning)
         };
         IncidentsListActions = new List<GsoAction<GsoIncidentsListActionContext>>() {
-            new ("Export to csv", Icons.Filled.ImportExport, (data) => ExportList(data), null, Color.Warning)
+            new ("Export to csv", Icons.Material.Filled.ImportExport, (data) => ExportList(data), null, Color.Warning)
         }; 
         IncidentsListItemActions = new List<GsoAction<GsoIncidentsListItemActionContext>>() {
-            new ("Edit", Icons.Filled.Edit, (_) => {}, null, Color.Warning),
-            new ("Delete", Icons.Filled.Delete, (_) => {}, null, Color.Warning),
+            new ("Edit", Icons.Material.Filled.Edit, (_) => {}, null, Color.Warning),
+            new ("Delete", Icons.Material.Filled.Delete, (_) => {}, null, Color.Warning),
         };
         IncidentEditExtensions = new List<GsoExtension>() { 
             new(typeof(EditExtensionTop), ExtentionPlacement.Top, () => Console.WriteLine("Edit form: Plugin 3 extension - before save"), () => Console.WriteLine("Edit form: Plugin 3 extension - after save")),

@@ -17,7 +17,7 @@ public class JsInvoker {
         }
     }
 
-    public static void InitializeAsync(IServiceProvider sp) {
+    public void InitializeAsync(IServiceProvider sp) {
         if (!_initialized) {
             _jSRuntime = (IJSInProcessRuntime)sp.GetService(typeof(IJSRuntime));
             var assembly = Assembly.GetAssembly(typeof(JsInvoker));
@@ -26,11 +26,11 @@ public class JsInvoker {
         }
     }
 
-    public static void DownloadFile(string fileName, string contentType, byte[] content) {
+    public void DownloadFile(string fileName, string contentType, byte[] content) {
          _jSRuntime.InvokeVoid("plugin3JsInvoker.downloadFile", fileName, contentType, content);
     }
 
-    private static string GetEmbeddedJSInteropCode(Assembly assembly, string path) {
+    private string GetEmbeddedJSInteropCode(Assembly assembly, string path) {
         using var stream = assembly.GetManifestResourceStream(path);
         using var reader = new StreamReader(stream);
         return reader.ReadToEnd();

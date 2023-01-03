@@ -8,18 +8,18 @@ namespace Lis.Gso.Plugin2;
 public class Plugin : GsoPluginBase {
     public Plugin(IServiceProvider sp) : base(sp) {
         HeaderActions = new List<GsoAction>() {
-            new ("Show Modal", Icons.Filled.Umbrella, () => ShowModal(), null, Color.Tertiary),
-            new ("Show Settings Page", Icons.Filled.Settings, () => ShowSettings(), null, Color.Tertiary)
+            new ("Show Modal", Icons.Material.Filled.Umbrella, () => ShowModal(), null, Color.Tertiary),
+            new ("Show Settings Page", Icons.Material.Filled.Settings, () => ShowSettings(), null, Color.Tertiary)
         };
         IncidentsMapActions = new List<GsoAction>() {
             new ("Show CarTrack", "", null, typeof(MapCartrack))
         };
         IncidentsListActions = new List<GsoAction<GsoIncidentsListActionContext>>() {
-            new ("Print", Icons.Filled.ImportExport, (data) => PrintList(data), null, Color.Tertiary)
+            new ("Print", Icons.Material.Filled.ImportExport, (data) => PrintList(data), null, Color.Tertiary)
         }; 
         IncidentsListItemActions = new List<GsoAction<GsoIncidentsListItemActionContext>>() {
-            new ("Copy", Icons.Filled.Edit, (data) => PrintListItem(data), null, Color.Tertiary),
-            new ("Paste", Icons.Filled.Delete, (data) => PrintListItem(data), null, Color.Tertiary),
+            new ("Copy", Icons.Material.Filled.Edit, (data) => PrintListItem(data), null, Color.Tertiary),
+            new ("Paste", Icons.Material.Filled.Delete, (data) => PrintListItem(data), null, Color.Tertiary),
         }; 
     }
 

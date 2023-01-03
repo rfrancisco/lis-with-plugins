@@ -17,7 +17,7 @@ public class MapExtensions {
         }
     }
 
-    public static async Task InitializeAsync(IJSRuntime jSRuntime) {
+    public async Task InitializeAsync(IJSRuntime jSRuntime) {
         if (!_initialized) {
             _jSRuntime = jSRuntime;
             var assembly = Assembly.GetAssembly(typeof(MapExtensions));
@@ -27,11 +27,11 @@ public class MapExtensions {
         }
     }
 
-    public static async Task GenerateRandomMarker() {
+    public async Task GenerateRandomMarker() {
         await _jSRuntime.InvokeVoidAsync("plugin2MapExtensions.generateRandomMarker");
     }
 
-    private static string GetEmbeddedJSInteropCode(Assembly assembly, string path) {
+    private string GetEmbeddedJSInteropCode(Assembly assembly, string path) {
         using var stream = assembly.GetManifestResourceStream(path);
         using var reader = new StreamReader(stream);
         return reader.ReadToEnd();
