@@ -48,8 +48,8 @@
         GsoNavigationMan.Initialize();
         GsoNavigationMan.NavigationContextChanged += StateHasChanged;
         var headerActions = new GsoAction[] {
-            new("List", Icons.Outlined.ListAlt, () => GsoNavigationMan.ToggleSecondaryActivity("list")),
-            new("Report", Icons.Outlined.PieChart, () => GsoNavigationMan.ToggleSecondaryActivity("report"))
+            new("List", Icons.Material.Outlined.ListAlt, () => GsoNavigationMan.ToggleSecondaryActivity("list")),
+            new("Report", Icons.Material.Outlined.PieChart, () => GsoNavigationMan.ToggleSecondaryActivity("report"))
         }.Concat(GsoPluginMan.AvailablePlugins.SelectMany(x => x.HeaderActions));
         GsoHeaderMan.Initialize("GSO", "", headerActions);
         GsoWelcomeMan.Show();

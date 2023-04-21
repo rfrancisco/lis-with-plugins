@@ -3,7 +3,7 @@
 <LisCard Title="List" OnClose="GsoNavigation.HideSecondaryActivity">
     @if (_actions?.Length > 0) {
         <div class="list-actions">
-            <MudMenu Label="Options" EndIcon="@Icons.Filled.KeyboardArrowDown" Color="Color.Primary" Variant="Variant.Filled">
+            <MudMenu Label="Options" EndIcon="@Icons.Material.Filled.KeyboardArrowDown" Color="Color.Primary" Variant="Variant.Filled">
                 @foreach (var action in _actions) {
                     <MudMenuItem OnClick="() => action.OnClick(new GsoIncidentsListActionContext(Incidents))"><MudText Color="@action.Color">@action.Label</MudText></MudMenuItem>
                 }

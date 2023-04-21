@@ -17,7 +17,7 @@
 .gso-primary-drawer {
   display: block;
   overflow: hidden;
-  transition: flex-basis 0.5s;
+  transition: flex-basis 0.2s;
   background: #fff;
   z-index: 1;
 }

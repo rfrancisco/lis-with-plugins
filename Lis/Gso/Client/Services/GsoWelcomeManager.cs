@@ -22,7 +22,7 @@ public class GsoWelcomeManager : IGsoWelcomeManager {
         var showWelcome = (await _localStorage.GetItemAsStringAsync("welcome")) != "dont-show";
 
         if (showWelcome) {
-            var options = new DialogOptions() { DisableBackdropClick = true, CloseOnEscapeKey = false };
+            var options = new DialogOptions() { DisableBackdropClick = false, CloseOnEscapeKey = true };
             var dialog = _dialogService.Show<LisGsoWelcome>("Welcome", options);
             var result = await dialog.Result;
             // Present the modal and return a tupple with the button that was clicked (Item1), and a
@@ -30,11 +30,11 @@ public class GsoWelcomeManager : IGsoWelcomeManager {
             var data = (Tuple<string, bool>)result.Data;
 
             // Save option not to show the welcome screen again
-            if (data.Item2)
+            if (data != null && data.Item2 == true)
                 await _localStorage.SetItemAsStringAsync("welcome", "dont-show");
 
             // Show the create form if the user clicked on the 'report' button
-            if (data.Item1 == "report")
+            if (data != null && data.Item1 == "report")
                 _gsoNavigationMan.ShowPrimaryActivity("create");
         } else {
             _logger.LogInformation("User preference disabled the Welcome dialog");
